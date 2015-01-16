@@ -1,7 +1,7 @@
 {
-  "name": "node-usb-test",
+  "name": "node-rfid-hid-reader",
   "version": "1.0.0",
-  "description": "Read usb input from specific device.",
+  "description": "Read usb input from HID RFID reader. Taking controll of the device and capturing input.",
   "main": "app.coffee",
   "author": "Keith Hoffmann <keith@theuprisingcreative.com> (http://theuprisingcreative.com/)",
   "private": true,
@@ -12,8 +12,6 @@
     "colors": "^1.0.3",
     "lodash": "^2.4.1",
     "node-hid": "^0.3.2",
-    "serialport": "^1.4.10",
-    "usb": "^0.3.11",
     "when": "^3.6.4"
   }
 }
