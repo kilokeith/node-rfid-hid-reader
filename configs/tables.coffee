@@ -1,6 +1,10 @@
 #buffer will be 4 hex bytes "00 00 21 00 00 00 00 00"
 #if first byte is 02, it's a letter. If it's 00, then it's a number.
 
+#check this
+# http://www.mindrunway.ru/IgorPlHex/USBKeyScan.pdf
+# http://lmgtfy.com/?q=hid+keyboard+codes
+
 module.exports =
 	hid:
 		4: 'a'
