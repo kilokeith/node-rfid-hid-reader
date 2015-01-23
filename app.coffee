@@ -8,6 +8,11 @@ When 		= require 'when'
 
 tables  	= require "./configs/tables" 
 
+# tag_length	= 13
+tag_length	= 8
+# how many empty reads before we can assume input has ended?
+empty_reads_mark_finish = 5
+
 ### RFID Reader
 Product ID:	0x3bfa    - 15354
 Vendor ID:	0x0c27    - 3111
@@ -52,7 +57,8 @@ Current Required (mA):	100
 
 
 buffer = ''
-
+empty_reads = 0
+listen_for_empty = false
 
 #try to get RFID reader
 getRFIDReader = ->
@@ -75,10 +81,25 @@ readIDs = (data) ->
 	key = data[2]
 	table = if shift then tables.shift_hid else tables.hid
 
+	# console.log typeof key, key
+
 	if table?[key]?
 		buffer += table[key]
+		# start listening for empty reads
+		empty_reads = 0
+		listen_for_empty = true
 
-	if buffer.length >= 13
+	else if data[0] is 0 and data[2] is 0
+		#read was empty
+		empty_reads += 1 if listen_for_empty
+		
+
+
+	# if buffer.length >= tag_length
+	# if we hit X empty reads, stop listening and output RFID buffer string
+	if empty_reads >= empty_reads_mark_finish
+		empty_reads = 0
+		listen_for_empty = false
 		console.log "rfid is:".green, buffer
 		buffer = ''
 
