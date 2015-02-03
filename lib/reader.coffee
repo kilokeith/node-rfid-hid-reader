@@ -1,12 +1,10 @@
 path 		= require 'path'
 _ 			= require 'lodash'
 async 		= require 'async'
-# usb 		= require 'usb'
-# serialport 	= require 'serialport'
 HID			= require 'node-hid'
 When 		= require 'when'
 
-tables  	= require path.join( __dirname, "../", "configs", "tables" )
+tables  	= require path.join( global.__base, "configs", "tables" )
 
 # tag_length	= 13
 tag_length	= 8
