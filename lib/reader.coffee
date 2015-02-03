@@ -6,7 +6,7 @@ async 		= require 'async'
 HID			= require 'node-hid'
 When 		= require 'when'
 
-tables  	= require path.join( "__dirname", "../", "configs", "tables" )
+tables  	= require path.join( __dirname, "../", "configs", "tables" )
 
 # tag_length	= 13
 tag_length	= 8

@@ -3,6 +3,6 @@ require('colors');
 
 
 var path 	= require('path');
-var reader 	= require( path.join( "__dirname", "lib", "reader.coffee" ) )();
+var reader 	= require( path.join( __dirname, "lib", "reader.coffee" ) )();
 
 
