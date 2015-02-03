@@ -1,4 +1,3 @@
-require 'colors'
 path 		= require 'path'
 _ 			= require 'lodash'
 async 		= require 'async'
@@ -7,7 +6,7 @@ async 		= require 'async'
 HID			= require 'node-hid'
 When 		= require 'when'
 
-tables  	= require "./configs/tables" 
+tables  	= require path.join( "__dirname", "../", "configs", "tables" )
 
 # tag_length	= 13
 tag_length	= 8
@@ -77,7 +76,7 @@ getRFIDReader = ->
 
 
 
-readIDs = (data) ->
+readIDs = (data, cb) ->
 	shift = data[0] is 2
 	key = data[2]
 	table = if shift then tables.shift_hid else tables.hid
@@ -104,16 +103,24 @@ readIDs = (data) ->
 		console.log "rfid is:".green, buffer
 		buffer = ''
 
-deviceError = (err) ->
+deviceError = (err, cb) ->
 	console.error 'RDIF read error'.red, err
 
 
-#get rfid device
-getRFIDReader().then (device) ->
-	#setup device events
-	device.on "data", readIDs
-	device.on "error", deviceError
 
-.catch (err) ->
-	console.error 'No RFID reader found'.red, err
-	prcoess.exit(0)
+
+
+module.exports = (idReadCb=null, errorCB=null) ->
+	#get rfid device
+	getRFIDReader().then (device) ->
+		#setup device events
+		device.on "data", (data) ->
+			readIDs data, idReadCb
+
+
+		device.on "error", (err) ->
+			deviceError err, errorCB
+
+	.catch (err) ->
+		console.error 'No RFID reader found'.red, err
+		prcoess.exit(0)

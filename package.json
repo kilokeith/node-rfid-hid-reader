@@ -1,8 +1,8 @@
 {
   "name": "node-rfid-hid-reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read usb input from HID RFID reader. Taking controll of the device and capturing input.",
-  "main": "app.coffee",
+  "main": "app.js",
   "author": "Keith Hoffmann <keith@theuprisingcreative.com> (http://theuprisingcreative.com/)",
   "private": true,
   "license": "ISC",
